@@ -15,6 +15,7 @@
     </style>
 </head>
 <body>
+    @include('layouts.navbar')
     <div class="container-fluid">
         @yield('body')
     </div>

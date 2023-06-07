@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+
 
 class LoginController extends Controller
 {
@@ -15,23 +18,19 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        // dd($request);
-        // login
-        $email = $request->email;
-        $password = $request->password;
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
-        // check email dan password
-        $user = User::where('email', $email)->first(); //first untuk mengambil hanya 1 data dan get untuk banyak data, paginate
-        $hashedPassword = $user->password;
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
 
-        if (Hash::check($password, $hashedPassword)) {
-            return "Berhasil Login";
-        } else {
-            return "Gagal Login";
+            return redirect()->intended('/');
         }
 
-
-
-        return $user;
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
     }
 }
