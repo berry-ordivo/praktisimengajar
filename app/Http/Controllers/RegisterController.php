@@ -20,8 +20,9 @@ class RegisterController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
+        $user->role = 'member';
         $user->save();
 
-        return "Berhasil menyimpan";
+        return redirect('/login')->with('success', 'Berhasil mendaftar, silahkan login');
     }
 }

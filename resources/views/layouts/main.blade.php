@@ -16,7 +16,9 @@
 </head>
 <body>
     @include('layouts.navbar')
+
     <div class="container-fluid">
+        @include('layouts.flash')
         @yield('body')
     </div>
 
