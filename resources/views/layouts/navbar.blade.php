@@ -10,9 +10,23 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
+                @auth
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Post
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/posts">Lihat Semua</a></li>
+                        <li><a class="dropdown-item" href="/posts/create">Buat Artikel</a></li>
+                    </ul>
                 </li>
+                @endauth
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                @endguest
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 @auth

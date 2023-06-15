@@ -28,3 +28,15 @@ Route::post('/register', [App\Http\Controllers\RegisterController::class, 'regis
 // upload profile avatar
 Route::get('/profile/upload', [App\Http\Controllers\ProfileController::class, 'uploadView'])->middleware('auth');
 Route::post('/profile/upload', [App\Http\Controllers\ProfileController::class, 'upload'])->middleware('auth');
+
+Route::prefix('posts')->group(function () {
+    Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->middleware('auth');
+    Route::get('/create', [App\Http\Controllers\PostController::class, 'create'])->middleware('auth');
+    Route::get('/{id}', [App\Http\Controllers\PostController::class, 'show'])->middleware('auth');
+    Route::get('/edit/{id}', [App\Http\Controllers\PostController::class, 'edit'])->middleware('auth');
+    Route::patch('/{id}', [App\Http\Controllers\PostController::class, 'update'])->middleware('auth');
+    Route::delete('/{id}', [App\Http\Controllers\PostController::class, 'destroy'])->middleware('auth');
+    Route::post('/', [App\Http\Controllers\PostController::class, 'store'])->middleware('auth');
+});
+
+
