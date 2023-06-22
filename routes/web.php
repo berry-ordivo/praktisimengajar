@@ -28,3 +28,21 @@ Route::post('/register', [App\Http\Controllers\RegisterController::class, 'regis
 // upload profile avatar
 Route::get('/profile/upload', [App\Http\Controllers\ProfileController::class, 'uploadView'])->middleware('auth');
 Route::post('/profile/upload', [App\Http\Controllers\ProfileController::class, 'upload'])->middleware('auth');
+
+
+Route::prefix('posts')->group(function () {
+    // posts/
+    Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->middleware('auth');
+    // localhost:8000/posts/create
+    Route::get('/create', [App\Http\Controllers\PostController::class, 'create'])->middleware('auth');
+    // localhost:8000/posts/{id}
+    Route::get('/{id}', [App\Http\Controllers\PostController::class, 'show'])->middleware('auth');
+    // localhost:8000/posts/edit/{id}
+    Route::get('/edit/{id}', [App\Http\Controllers\PostController::class, 'edit'])->middleware('auth');
+    // localhost:8000/posts/{id}
+    Route::patch('/{id}', [App\Http\Controllers\PostController::class, 'update'])->middleware('auth');
+    // localhost:8000/posts/{id}
+    Route::delete('/{id}', [App\Http\Controllers\PostController::class, 'destroy'])->middleware('auth');
+    // localhost:8000/posts
+    Route::post('/', [App\Http\Controllers\PostController::class, 'store'])->middleware('auth');
+});
